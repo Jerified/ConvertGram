@@ -163,6 +163,7 @@ export default function Dropzone() {
     setIsConverting(false);
   };
   const handleUpload = (data: Array<any>): void => {
+    console.log(data)
     handleExitHover();
     setFiles(data);
     const tmp: Action[] = [];
