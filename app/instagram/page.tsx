@@ -19,7 +19,7 @@ const InstagramPage = () => {
     //     event.preventDefault()
 
         try {
-            const response = await fetch('api/instagram', {
+            const response = await fetch('api/instagram/route', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -45,7 +45,7 @@ const InstagramPage = () => {
             document.body.appendChild(link)
             link.click()
             document.body.removeChild(link)
-            setimageUrl('')
+            // setimageUrl('')
             toast({
                 // variant: "success",
                 title: "PDF generated successfully",
@@ -60,11 +60,11 @@ const InstagramPage = () => {
         }
     }
   return (
-    <div>
-        <form action="" className="" onSubmit={handleSubmit(onSubmit)}>
-            <input type="text" className="" value={imageUrl} id='imageUrl' placeholder='Enter the Instagram image URL' {...register('imageUrl', {required: true})}/>
+    <div className='min-h-[calc(100vh-6rem)] flex justify-center items-center'>
+        <form action="" className="flex flex-col gap-4 w-[40%]" onSubmit={handleSubmit(onSubmit)}>
+            <input type="text" className="h-12 rounded-lg px-2 outline-none" id='imageUrl' placeholder='Enter the Instagram image URL' {...register('imageUrl', {required: true})}/>
             {errors.imageUrl && (
-                <motion.div className=""
+                <motion.div className="mt-[-0.7rem] flex gap-1 items-center text-xs"
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
                 transition={{duration: 0.5}} 
@@ -72,7 +72,7 @@ const InstagramPage = () => {
                     <FaExclamationCircle color= 'red' /> This field is required
                 </motion.div>
             )}
-            <button className="" type='submit'>Download PDF</button>
+            <button className="bg-[#D691CE] px-4 py-2 rounded-lg hover:bg-[#AC58F5] transition" type='submit'>Download PDF</button>
         </form>
     </div>
   )

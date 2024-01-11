@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <GA GA_MEASUREMENT_ID='G-52GQ441X7H' /> */}
       <meta name="google-site-verification" content="V8lmEvFOdYBlChgR6pYABBZBhI1EFnPb1YuxTTdHXMU" />
-      <body className={inter.className}>
+        <body className={`${inter.className} bg-[#F0D3F7] min-h-screen overflow-hidden`}>
         <Navbar />
         <Toaster />
         <div className="pt-32 min-h-screen lg:pt-36 2xl:pt-44 container max-w-4xl lg:max-w-6xl 2xl:max-w-7xl">
