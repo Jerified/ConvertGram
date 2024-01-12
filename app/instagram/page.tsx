@@ -16,10 +16,11 @@ const InstagramPage = () => {
 
         const onSubmit =  async(data: any) => {
     // const handleSubmit = async (event: any) => {
+        console.log(data)
     //     event.preventDefault()
 
         try {
-            const response = await fetch('api/instagram/route', {
+            const response = await fetch('api/instagram/', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
