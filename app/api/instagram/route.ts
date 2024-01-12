@@ -2,20 +2,22 @@ import { NextRequest, NextResponse } from "next/server";
 import { jsPDF } from "jspdf";
 import axios from "axios";
 
-export async function POST(req: Request, res: Response) {
+// function fromBuffer(buffer: Buffer, options: { headers?: HeadersInit; status?: number } = {}) {
+//     return NextResponse.from(Buffer.from(buffer), options)
+// }
+
+export async function POST(req: NextRequest) {
   const { imageUrl } = await req.json();
   console.log(imageUrl);
   if (!imageUrl || !imageUrl.startsWith("https://www.instagram.com/p/")) {
-    Response.json({ message: "Invalid Instagram image URL." });
-    return;
+    return NextResponse.json({ message: "Invalid Instagram image URL." }, { status: 400 });
+    
   }
 
   try {
     // Fetch the image from the URL
     const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
-    const image =
-      "data:image/jpeg;base64," +
-      Buffer.from(response.data, "binary").toString("base64");
+    const image = "data:image/jpeg;base64," + Buffer.from(response.data, "binary").toString("base64");
 
     // Create a new PDF document
     const doc = new jsPDF();
@@ -26,24 +28,27 @@ export async function POST(req: Request, res: Response) {
     // Convert the PDF document into a byte array
     const pdfBytes = doc.output("arraybuffer");
 
+    console.log(pdfBytes)
+
     // Send the PDF bytes in the response
 
-    const nextRes = NextResponse.next({
-      body: Buffer.from(pdfBytes),
+    // @ts-ignore
+    const res = NextResponse.from(Buffer.from(pdfBytes), {
       headers: {
         "Content-Type": "application/pdf",
         "Content-Disposition": "attachmentfilename=instagram-image.pdf",
-      },
-    } as any);
-    console.log(nextRes);
+        }
+      });
+    console.log(res);
+    return res
 
     // res.setHeader('Content-Type', 'application/pdf');
     // res.setHeader('Content-Disposition', 'attachment; filename=instagram-image.pdf');
-    return NextResponse.json({
-      imageUrl,
-    });
+    // return NextResponse.json({
+    //   nextRes,
+    // });
   } catch (error: any) {
-    Response.json({ message: `An error occurred: ${error.message}` });
+    NextResponse.json({ message: `An error occurred: ${error.message}` });
   }
 //   return NextResponse.json({
 //     nextRes,

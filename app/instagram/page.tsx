@@ -20,7 +20,7 @@ const InstagramPage = () => {
     //     event.preventDefault()
 
         try {
-            const response = await fetch('/api/instagram/', {
+            const response = await fetch('/api/instagram', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
@@ -47,11 +47,11 @@ const InstagramPage = () => {
             link.click()
             document.body.removeChild(link)
             // setimageUrl('')
-            toast({
-                // variant: "success",
-                title: "PDF generated successfully",
-                duration: 5000,
-              })
+            // toast({
+            //     // variant: "success",
+            //     title: "PDF generated successfully",
+            //     duration: 5000,
+            //   })
         } catch (error) {
             toast({
                 variant: "destructive",
@@ -62,7 +62,7 @@ const InstagramPage = () => {
     }
   return (
     <div className='min-h-[calc(100vh-6rem)] flex justify-center items-center'>
-        <form action="" className="flex flex-col gap-4 w-[40%]" onSubmit={handleSubmit(onSubmit)}>
+        <form action="" className="flex flex-col gap-4 w-[60%] md:w-[40%]" onSubmit={handleSubmit(onSubmit)}>
             <input type="text" className="h-12 rounded-lg px-2 outline-none" id='imageUrl' placeholder='Enter the Instagram image URL' {...register('imageUrl', {required: true})}/>
             {errors.imageUrl && (
                 <motion.div className="mt-[-0.7rem] flex gap-1 items-center text-xs"
