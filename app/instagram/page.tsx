@@ -20,7 +20,7 @@ const InstagramPage = () => {
     //     event.preventDefault()
 
         try {
-            const response = await fetch('api/instagram/', {
+            const response = await fetch('/api/instagram/', {
                 method: 'POST',
                 headers: {
                     "Content-Type": 'application/json'
