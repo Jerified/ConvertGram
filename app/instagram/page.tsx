@@ -9,7 +9,8 @@ import axios from 'axios'
 
 const InstagramPage = () => {
     const { toast } = useToast();
-    const [imageUrl, setimageUrl] = useState('')
+    const [url, setUrl] = useState('')
+    const [images, setImages] = useState<string[]>([])
 
     const {register, handleSubmit, formState: {
         errors}}  = useForm()
@@ -17,41 +18,48 @@ const InstagramPage = () => {
         const onSubmit =  async(data: any) => {
     // const handleSubmit = async (event: any) => {
         console.log(data)
-    //     event.preventDefault()
+    //     event.preventDefault()   
 
         try {
-            const response = await fetch('/api/instagram', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": 'application/json'
-                },
-                body: JSON.stringify({
-                    imageUrl: data.imageUrl
-                }),
-            })
-
-            if (!response.ok) {
-                toast({
-                    variant: "destructive",
-                    title: "An error occured while converting the image to PDF",
-                    duration: 5000,
-                  })
+            const response = await fetch(`/api/instagram?url=${data.imageUrl}`)
+            const datas: any = response.json()
+            console.log(data)
+            if(data.error){
+                throw new Error(datas.error)
             }
+            setImages(datas.data)
+        //     // , {
+        //     //     method: 'POST',
+        //     //     headers: {
+        //     //         "Content-Type": 'application/json'
+        //     //     },
+        //     //     body: JSON.stringify({
+        //     //         imageUrl: data.imageUrl
+        //     //     }),
+        //     // })
 
-            const blob = await response.blob()
-            const blobUrl = URL.createObjectURL(blob)
-            const link = document.createElement('a')
-            link.href = blobUrl
-            link.download = 'instagram-image.pdf'
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-            // setimageUrl('')
-            // toast({
-            //     // variant: "success",
-            //     title: "PDF generated successfully",
-            //     duration: 5000,
-            //   })
+        //     // if (!response.ok) {
+        //     //     toast({
+        //     //         variant: "destructive",
+        //     //         title: "An error occured while converting the image to PDF",
+        //     //         duration: 5000,
+        //     //       })
+        //     // }
+
+        //     // const blob = await response.blob()
+        //     // const blobUrl = URL.createObjectURL(blob)
+        //     // const link = document.createElement('a')
+        //     // link.href = blobUrl
+        //     // link.download = 'instagram-image.pdf'
+        //     // document.body.appendChild(link)
+        //     // link.click()
+        //     // document.body.removeChild(link)
+        //     // setimageUrl('')
+        //     // toast({
+        //     //     // variant: "success",
+        //     //     title: "PDF generated successfully",
+        //     //     duration: 5000,
+        //     //   })
         } catch (error) {
             toast({
                 variant: "destructive",
