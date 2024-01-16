@@ -8,12 +8,12 @@ import { Toaster } from '@/components/ui/toaster';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Modifio - Free Unlimited File Converter',
-  description: `Unleash your creativity with Modifio – the ultimate online tool for
+  title: 'ConvertGram - Free Unlimited File Converter',
+  description: `Unleash your creativity with ConvertGram – the ultimate online tool for
   unlimited and free multimedia conversion. Transform images, audio, and
   videos effortlessly, without restrictions. Start converting now and
   elevate your content like never before!`,
-  creator: 'SOUHAIL BEN-LHACHEMI',
+  creator: 'Oyedele Temitope Jeremiah',
   keywords:
     'image converter, video converter, audio converter, unlimited image converter, unlimited video converter',
 };
